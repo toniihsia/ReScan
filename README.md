@@ -7,7 +7,7 @@ A well-tailored resume is an essential aspect to a successful job application. H
 
 re:Scan seeks to simplify the resume tailoring process by providing instant feed back on resume and job description similarity. It parses through a job description to isolate specific hard and soft qualities an employer is looking for. It then parses through an applicant's resumes looking for key words that suggest an applicant possesses these qualities. A percentage score that reflects how well a resume is suited for a job description is consequently produced. If an applicant's resume highly reflects the qualities an employer is looking for, a high percentage score is given. Otherwise, a low percentage score along with suggested verbs is provided.
 
-Applicants should be able to upload their resume to the extension. This resume should persist through browser navigation and be easily accessed upon clicking the Chrome extension button. The extension will parse through the DOM to look for job description text. 
+Applicants should be able to upload their resume to the extension. This resume should persist through browser navigation and be easily accessed upon clicking the Chrome extension button. The extension will parse through the DOM to look for job description text.
 
 
 ### Functionality & MVP
@@ -38,28 +38,23 @@ The primary technical challenges will be:
 The uploaded resume and job application will be parsed while ignoring stop words. Once both documents parsed, each key word and several synonyms from the job application will be compared against the uploaded resume. The frequency of the keywords located within the job application will be compared with the matching keywords in the resume to result in a singular percentage number to denote similarity.
 
 ### Implementation Timeline
-
-<!-- Day 1 left for example -->
-<!-- just to be sure this isn't ingored -->
-<!-- THIS IS JUST FOR EXAMPLE -->
-
-**Day 1**: Get started on the infrastructure of the extension, following <a href="https://developer.chrome.com/extensions/getstarted">this guide</a> from Chrome.  By the end of the day, I will have:
+**Day 1**: Get started on the infrastructure of the extension, following <a href="https://developer.chrome.com/extensions/getstarted">this guide</a> from Chrome.  By the end of the day, we will have:
 
 - A completed `package.json`
 - A completed `manifest.json`
-- The ability to locate and alter a DOM element by class
+- The ability to upload and store a resume
 
-**Day 2**:
+**Day 2**: Look into parsing mechanisms in order to parse the stored resume and job applications. Additionally, methods of isolating the job application content will be explored. By the end of the day, we will have:
 
--
--
+- The ability to parse resume contents
+- The ability to parse just the job application contents
 
-**Day 3**:
+**Day 3**: Explore methods of identifying and counting key words. We would likely look into public dictionary/thesaurus APIs to find multiple keyword matches
 
--
--
+- Obtain a method to weigh various keywords against the uploaded resume
+- Obtain raw matching data between the two documents
 
-**Day 4**:
+**Day 4**: Consolidate matching data, and provide tertiary metrics such as resume length, job title matches, and advanced degrees.
 
--
--
+- Provide and display a singular number as a metric for how well the resume matches with the given job application description
+- Provide supplemental data to provide additional matching criteria, or where resume can be improved to better fit the job description
