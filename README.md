@@ -1,6 +1,11 @@
 # re:Scan
 re:Scan (Resume Scanner) is a Chrome extension that provides a detailed report on how well-tailored an applicant's resume is to a particular job description.
 
+### Collaborators
+
+Tonia Hsia: https://github.com/toniihsia
+Ben Dippelsman: https://github.com/quarks0
+
 
 ## Background
 A well-tailored resume is an essential aspect to a successful job application. However, crafting such a resume can be difficult and time-consuming.
@@ -16,6 +21,7 @@ With this extension, users will be able to:
 
 - [ ] Upload and parse a copy of their resume
 - [ ] Parse a job application page for keywords
+- [ ] Analyze the parsed text through natural language processing
 - [ ] Obtain a similarity percentage between the uploaded resume and the job application
 
 
@@ -33,15 +39,15 @@ If the user has already uploaded a resume, the extension will proceed to automat
 This extension will be implemented using the standard Chrome extension technology: Javascript, HTML, and CSS.  In addition to the `manifest.json` and `package.json` files, there will be two scripts:
 
 - `parser.js` which will contain the logic for parsing documents
-- `wordmatcher.js`which will contain the logic for term matching and frequency of key words.
+- `wordmatcher.js`which will contain the logic for the natural language processing.
 
 The primary technical challenges will be:
 
 - Parsing through both the uploaded resume and the job application page
-- Determining weight and frequency of key words
+- Determining weight and frequency of key words through natural language processing
 - Matching the frequency of all key words to generate a single percentage
 
-The uploaded resume and job application will be parsed while ignoring stop words. Once both documents parsed, each key word and several synonyms from the job application will be compared against the uploaded resume. The frequency of the keywords located within the job application will be compared with the matching keywords in the resume to result in a singular percentage number to denote similarity.
+The uploaded resume and job application will be parsed while ignoring stop words. Once both documents parsed, each key word and several synonyms from the job application will be compared against the uploaded resume. The ability to identify and weigh key words will be handled by natural language processing through Stanford CoreNLP library.
 
 ### Implementation Timeline
 **Day 1**: Get started on the infrastructure of the extension, following <a href="https://developer.chrome.com/extensions/getstarted">this guide</a> from Chrome.  By the end of the day, we will have:
@@ -55,9 +61,9 @@ The uploaded resume and job application will be parsed while ignoring stop words
 - The ability to parse resume contents
 - The ability to parse just the job application contents
 
-**Day 3**: Explore methods of identifying and counting key words. We would likely look into public dictionary/thesaurus APIs to find multiple keyword matches
+**Day 3**: Explore methods of identifying and counting key words. Stanford's CoreNLP library can provide an accessible way to analyze resume and document text.
 
-- Obtain a method to weigh various keywords against the uploaded resume
+- Implement interfacing with the CoreNLP library to process text, may be offloaded through ajax requests via Algorithmica
 - Obtain raw matching data between the two documents
 
 **Day 4**: Consolidate matching data, and provide tertiary metrics such as resume length, job title matches, and advanced degrees.
