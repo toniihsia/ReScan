@@ -63,7 +63,7 @@ The uploaded resume and job application will be parsed while ignoring stop words
 
 **Day 3**: Explore methods of identifying and counting key words. Stanford's CoreNLP library can provide an accessible way to analyze resume and document text.
 
-- Implement interfacing with the CoreNLP library to process text, may be offloaded through ajax requests via Algorithmica
+- Implement interfacing with the CoreNLP library to process text, may be offloaded through ajax requests via Algorithmia
 - Obtain raw matching data between the two documents
 
 **Day 4**: Consolidate matching data, and provide tertiary metrics such as resume length, job title matches, and advanced degrees.
