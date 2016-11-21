@@ -20,7 +20,13 @@ With this extension, users will be able to:
 
 
 ### Wireframes
+re:Scan will appear as a modal when its corresponding Chrome extension icon is clicked in the Chrome extension bar.
 
+If the user has not uploaded a resume yet, the user will be prompted to upload his/her resume. The resume will be parsed immediately with its details stored within the extension itself.
+![Image of Resume Upload](docs/wireframes/rescan-resume-upload.png)
+
+If the user has already uploaded a resume, the extension will proceed to automatically parse the job description on the current webpage. The parsed resume information will be compared with the parsed job description information and a percentage score will be produced along with a comparison of keywords that are either present or missing from the applicant's resume.
+![Image of Score](docs/wireframes/rescan-chrome-extension.png)
 
 ### Technologies & Technical Challenges
 
