@@ -4,6 +4,7 @@ re:Scan (Resume Scanner) is a Chrome extension that provides a detailed report o
 ### Collaborators
 
 Tonia Hsia: https://github.com/toniihsia
+
 Ben Dippelsman: https://github.com/quarks0
 
 
