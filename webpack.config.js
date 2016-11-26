@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   context: __dirname,
-  entry: "./rescan.js",
+  entry: "./lib/rescan.js",
   output: {
     path: path.join(__dirname),
     filename: "bundle.js"
