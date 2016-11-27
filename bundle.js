@@ -56,26 +56,15 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//jQuery regex selector by James Padolsey
-	// http://james.padolsey.com/javascript/regex-selector-for-jquery/
-	_jquery2.default.expr[':'].regex = function (elem, index, match) {
-	    var matchParams = match[3].split(','),
-	        validLabels = /^(data|css):/,
-	        attr = {
-	        method: matchParams[0].match(validLabels) ? matchParams[0].split(':')[0] : 'attr',
-	        property: matchParams.shift().replace(validLabels, '')
-	    },
-	        regexFlags = 'ig',
-	        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g, ''), regexFlags);
-	    return regex.test(jQuery(elem)[attr.method](attr.property));
-	};
-	
 	document.addEventListener("DOMContentLoaded", function () {
-	    var resume = "";
+	  var resume = "";
 	
-	    chrome.storage.sync.get('resume', function (_resume) {
-	        resume = _resume;
-	    });
+	  chrome.storage.sync.get('resume', function (_resume) {
+	    resume = _resume;
+	  });
+	
+	  var but = document.getElementById('extract-description');
+	  but.addEventListener('click', _parser2.default.readFromWebPage());
 	});
 
 /***/ },
@@ -10306,113 +10295,116 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.parse = parse;
+	exports.removeStopWords = removeStopWords;
+	exports.replaceKeywords = replaceKeywords;
+	exports.readFromTextArea = readFromTextArea;
+	exports.readFromWebPage = readFromWebPage;
+	exports.showLeadership = showLeadership;
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _jquery = __webpack_require__(1);
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	// import * as WORD_BANK from './word_bank.js';
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Parser = function () {
-	  function Parser() {
-	    _classCallCheck(this, Parser);
+	//jQuery regex selector by James Padolsey
+	// http://james.padolsey.com/javascript/regex-selector-for-jquery/
+	_jquery2.default.expr[':'].regex = function (elem, index, match) {
+	  var matchParams = match[3].split(','),
+	      validLabels = /^(data|css):/,
+	      attr = {
+	    method: matchParams[0].match(validLabels) ? matchParams[0].split(':')[0] : 'attr',
+	    property: matchParams.shift().replace(validLabels, '')
+	  },
+	      regexFlags = 'ig',
+	      regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g, ''), regexFlags);
+	  return regex.test(jQuery(elem)[attr.method](attr.property));
+	}; // import * as WORD_BANK from './word_bank.js';
+	function parse(string) {
+	  return replaceKeywords(removeStopWords(string));
+	}
+	
+	function removeStopWords(string) {
+	  var res = string;
+	  for (var i = 0; i < WORD_BANK.stopWords.length; i++) {
+	    res = res.split(WORD_BANK.stopWords[i]).join('');
 	  }
+	  res = res.replace(/\s{2,}/g, " ");
+	  return res;
+	}
 	
-	  _createClass(Parser, [{
-	    key: 'parse',
-	    value: function parse(string) {
-	      return replaceKeywords(removeStopWords(string));
-	    }
-	  }, {
-	    key: 'removeStopWords',
-	    value: function removeStopWords(string) {
-	      var res = string;
-	      for (var i = 0; i < WORD_BANK.stopWords.length; i++) {
-	        res = res.split(WORD_BANK.stopWords[i]).join('');
-	      }
-	      res = res.replace(/\s{2,}/g, " ");
-	    }
-	  }, {
-	    key: 'replaceKeywords',
-	    value: function replaceKeywords(string) {
-	      var res = string;
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	    }
-	  }, {
-	    key: 'readFromTextArea',
-	    value: function readFromTextArea(text) {
-	      var uploadedResume = text;
+	function replaceKeywords(string) {
+	  var res = string;
+	  for (var i = 0; i < WORD_BANK.leadership.length; i++) {
+	    res = res.split(WORD_BANK.leadership[i]).join('');
+	  }
+	  for (var i = 0; i < WORD_BANK.leadership.length; i++) {
+	    res = res.split(WORD_BANK.leadership[i]).join('');
+	  }
+	  for (var i = 0; i < WORD_BANK.leadership.length; i++) {
+	    res = res.split(WORD_BANK.leadership[i]).join('');
+	  }
+	  for (var i = 0; i < WORD_BANK.leadership.length; i++) {
+	    res = res.split(WORD_BANK.leadership[i]).join('');
+	  }
+	  for (var i = 0; i < WORD_BANK.leadership.length; i++) {
+	    res = res.split(WORD_BANK.leadership[i]).join('');
+	  }
+	  for (var i = 0; i < WORD_BANK.leadership.length; i++) {
+	    res = res.split(WORD_BANK.leadership[i]).join('');
+	  }
+	  for (var i = 0; i < WORD_BANK.leadership.length; i++) {
+	    res = res.split(WORD_BANK.leadership[i]).join('');
+	  }
+	  for (var i = 0; i < WORD_BANK.leadership.length; i++) {
+	    res = res.split(WORD_BANK.leadership[i]).join('');
+	  }
+	  for (var i = 0; i < WORD_BANK.leadership.length; i++) {
+	    res = res.split(WORD_BANK.leadership[i]).join('');
+	  }
+	  for (var i = 0; i < WORD_BANK.leadership.length; i++) {
+	    res = res.split(WORD_BANK.leadership[i]).join('');
+	  }
+	  for (var i = 0; i < WORD_BANK.leadership.length; i++) {
+	    res = res.split(WORD_BANK.leadership[i]).join('');
+	  }
+	}
 	
-	      if (!uploadedResume || uploadedResume === "") {
-	        message('Error: No text found');
-	        return;
-	      }
-	      resume = parse(uploadedResume);
-	      chrome.storage.sync.set({ 'resume': resume }, function () {
-	        message('Resume saved');
-	      });
-	    }
-	  }, {
-	    key: 'readFromWebPage',
-	    value: function readFromWebPage() {
-	      // var $jobDescriptions = $(:regex(class,""));
+	function readFromTextArea(text) {
+	  var uploadedResume = text;
 	
-	      // res = res.replace(/\s{2,}/g, " ");
-	    }
-	  }, {
-	    key: 'showLeadership',
-	    value: function showLeadership(string) {
-	      var res = string;
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      return res;
-	    }
-	  }]);
+	  if (!uploadedResume || uploadedResume === "") {
+	    message('Error: No text found');
+	    return;
+	  }
+	  resume = parse(uploadedResume);
+	  chrome.storage.sync.set({ 'resume': resume }, function () {
+	    message('Resume saved');
+	  });
+	}
 	
-	  return Parser;
-	}();
+	function readFromWebPage() {
+	  var $jobDescriptions = (0, _jquery2.default)('div:regex(class,*(job|desc|summary)*),span:regex(class,*(job|desc|summary)*)');
 	
-	exports.default = Parser;
+	  console.log($jobDescriptions);
+	  // res = res.replace(/\s{2,}/g, " ");
+	}
+	
+	function showLeadership(string) {
+	  var res = string;
+	  for (var i = 0; i < WORD_BANK.Leadership.length; i++) {
+	    res = res.split(WORD_BANK.Leadership[i]).join('');
+	  }
+	  return res;
+	}
 
 /***/ }
 /******/ ]);
