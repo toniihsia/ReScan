@@ -50,15 +50,21 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _parser = __webpack_require__(2);
-	
-	var _parser2 = _interopRequireDefault(_parser);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	//jQuery regex selector by James Padolsey
 	// http://james.padolsey.com/javascript/regex-selector-for-jquery/
-	// PSEUDO-CODE //
+	_jquery2.default.expr[':'].regex = function (elem, index, match) {
+	  var matchParams = match[3].split(','),
+	      validLabels = /^(data|css):/,
+	      attr = {
+	    method: matchParams[0].match(validLabels) ? matchParams[0].split(':')[0] : 'attr',
+	    property: matchParams.shift().replace(validLabels, '')
+	  },
+	      regexFlags = 'ig',
+	      regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g, ''), regexFlags);
+	  return regex.test(jQuery(elem)[attr.method](attr.property));
+	}; // PSEUDO-CODE //
 	// Step 1. Parse resume; save parsed resume in variable.
 	// Step 2. Parse job-description; save parsed job-description in variable;
 	// Step 3. Analyze similarity between parsed resume and parsed job-description.
@@ -67,25 +73,19 @@
 	// Step 6. Analyze which qualities are emphasized by parsed job-description.
 	// Step 7. Produce resume suggestions based on job-description's quality emphases.
 	
-	_jquery2.default.expr[':'].regex = function (elem, index, match) {
-	    var matchParams = match[3].split(','),
-	        validLabels = /^(data|css):/,
-	        attr = {
-	        method: matchParams[0].match(validLabels) ? matchParams[0].split(':')[0] : 'attr',
-	        property: matchParams.shift().replace(validLabels, '')
-	    },
-	        regexFlags = 'ig',
-	        regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g, ''), regexFlags);
-	    return regex.test(jQuery(elem)[attr.method](attr.property));
-	};
-	
 	document.addEventListener("DOMContentLoaded", function () {
-	    var resume = "";
+	  var resume = "";
 	
-	    chrome.storage.sync.get('resume', function (_resume) {
-	        resume = _resume;
-	    });
+	  chrome.storage.sync.get('resume', function (_resume) {
+	    resume = _resume;
+	  });
+	
+	  document.getElementById("extract-description").addEventListener('click', getDescription);
 	});
+	
+	function getDescription() {
+	  chrome.tabs.executeScript({ file: "./lib/pullDescription.js" });
+	}
 
 /***/ },
 /* 1 */
@@ -10312,116 +10312,6 @@
 	return jQuery;
 	} );
 
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	// import * as WORD_BANK from './word_bank.js';
-	
-	var Parser = function () {
-	  function Parser() {
-	    _classCallCheck(this, Parser);
-	  }
-	
-	  _createClass(Parser, [{
-	    key: 'parse',
-	    value: function parse(string) {
-	      return replaceKeywords(removeStopWords(string));
-	    }
-	  }, {
-	    key: 'removeStopWords',
-	    value: function removeStopWords(string) {
-	      var res = string;
-	      for (var i = 0; i < WORD_BANK.stopWords.length; i++) {
-	        res = res.split(WORD_BANK.stopWords[i]).join('');
-	      }
-	      res = res.replace(/\s{2,}/g, " ");
-	    }
-	  }, {
-	    key: 'replaceKeywords',
-	    value: function replaceKeywords(string) {
-	      var res = string;
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	    }
-	  }, {
-	    key: 'readFromTextArea',
-	    value: function readFromTextArea(text) {
-	      var uploadedResume = text;
-	
-	      if (!uploadedResume || uploadedResume === "") {
-	        message('Error: No text found');
-	        return;
-	      }
-	      resume = parse(uploadedResume);
-	      chrome.storage.sync.set({ 'resume': resume }, function () {
-	        message('Resume saved');
-	      });
-	    }
-	  }, {
-	    key: 'readFromWebPage',
-	    value: function readFromWebPage() {
-	      // var $jobDescriptions = $(:regex(class,""));
-	
-	      // res = res.replace(/\s{2,}/g, " ");
-	    }
-	  }, {
-	    key: 'showLeadership',
-	    value: function showLeadership(string) {
-	      var res = string;
-	      for (var i = 0; i < WORD_BANK.leadership.length; i++) {
-	        res = res.split(WORD_BANK.leadership[i]).join('');
-	      }
-	      return res;
-	    }
-	  }]);
-	
-	  return Parser;
-	}();
-	
-	exports.default = Parser;
 
 /***/ }
 /******/ ]);
