@@ -44,17 +44,9 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	var _jquery = __webpack_require__(1);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
+	"use strict";
 	
 	var _parser = __webpack_require__(2);
-	
-	var _parser2 = _interopRequireDefault(_parser);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	document.addEventListener("DOMContentLoaded", function () {
 	  var resume = "";
@@ -63,9 +55,12 @@
 	    resume = _resume;
 	  });
 	
-	  var but = document.getElementById('extract-description');
-	  but.addEventListener('click', _parser2.default.readFromWebPage());
+	  document.getElementById('extract-description-button').addEventListener('click', getDescriptions);
 	});
+	
+	function getDescriptions() {
+	  chrome.tabs.executeScript({ file: "./lib/pullDescription.js" });
+	}
 
 /***/ },
 /* 1 */
@@ -10306,8 +10301,11 @@
 	exports.removeStopWords = removeStopWords;
 	exports.replaceKeywords = replaceKeywords;
 	exports.readFromTextArea = readFromTextArea;
-	exports.readFromWebPage = readFromWebPage;
 	exports.showLeadership = showLeadership;
+	
+	var _word_bank = __webpack_require__(3);
+	
+	var WORD_BANK = _interopRequireWildcard(_word_bank);
 	
 	var _jquery = __webpack_require__(1);
 	
@@ -10315,19 +10313,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//jQuery regex selector by James Padolsey
-	// http://james.padolsey.com/javascript/regex-selector-for-jquery/
-	_jquery2.default.expr[':'].regex = function (elem, index, match) {
-	  var matchParams = match[3].split(','),
-	      validLabels = /^(data|css):/,
-	      attr = {
-	    method: matchParams[0].match(validLabels) ? matchParams[0].split(':')[0] : 'attr',
-	    property: matchParams.shift().replace(validLabels, '')
-	  },
-	      regexFlags = 'ig',
-	      regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g, ''), regexFlags);
-	  return regex.test(jQuery(elem)[attr.method](attr.property));
-	}; // import * as WORD_BANK from './word_bank.js';
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	function parse(string) {
 	  return replaceKeywords(removeStopWords(string));
 	}
@@ -10391,13 +10378,6 @@
 	  });
 	}
 	
-	function readFromWebPage() {
-	  var $jobDescriptions = (0, _jquery2.default)('div:regex(class,*(job|desc|summary)*),span:regex(class,*(job|desc|summary)*)');
-	
-	  console.log($jobDescriptions);
-	  // res = res.replace(/\s{2,}/g, " ");
-	}
-	
 	function showLeadership(string) {
 	  var res = string;
 	  for (var i = 0; i < WORD_BANK.Leadership.length; i++) {
@@ -10405,6 +10385,22 @@
 	  }
 	  return res;
 	}
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var Leadership = {};
+	var Creativity = {};
+	var Initiative = {};
+	var CustomerService = {};
+	var TeamOriented = {};
+	var ResearchOriented = {};
+	var Achievement = {};
+	var Communication = {};
+	var Supportive = {};
 
 /***/ }
 /******/ ]);
