@@ -13,5 +13,13 @@
     "activeTab",
     "storage",
     "https://ajax.googleapis.com/"
-  ]
+  ],
+  "background": {
+  "scripts": ["bundle.js"],
+  "persistent": true
+  }
+  /*"content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["./lib/pullDescription.js"]
+  }]*/
 }
