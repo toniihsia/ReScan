@@ -70,6 +70,7 @@
 	document.addEventListener("DOMContentLoaded", function () {
 	
 	  // resume = Parser.readFromTextArea(resume);
+	
 	  chrome.storage.sync.get('resume', function (_resume) {
 	    resume = _resume;
 	  });
