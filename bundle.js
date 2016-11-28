@@ -50,21 +50,15 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
+	var _parser = __webpack_require__(2);
+	
+	var Parser = _interopRequireWildcard(_parser);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//jQuery regex selector by James Padolsey
-	// http://james.padolsey.com/javascript/regex-selector-for-jquery/
-	_jquery2.default.expr[':'].regex = function (elem, index, match) {
-	  var matchParams = match[3].split(','),
-	      validLabels = /^(data|css):/,
-	      attr = {
-	    method: matchParams[0].match(validLabels) ? matchParams[0].split(':')[0] : 'attr',
-	    property: matchParams.shift().replace(validLabels, '')
-	  },
-	      regexFlags = 'ig',
-	      regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g, ''), regexFlags);
-	  return regex.test(jQuery(elem)[attr.method](attr.property));
-	}; // PSEUDO-CODE //
+	// PSEUDO-CODE //
 	// Step 1. Parse resume; save parsed resume in variable.
 	// Step 2. Parse job-description; save parsed job-description in variable;
 	// Step 3. Analyze similarity between parsed resume and parsed job-description.
@@ -74,8 +68,8 @@
 	// Step 7. Produce resume suggestions based on job-description's quality emphases.
 	
 	document.addEventListener("DOMContentLoaded", function () {
-	  var resume = "";
 	
+	  // resume = Parser.readFromTextArea(resume);
 	  chrome.storage.sync.get('resume', function (_resume) {
 	    resume = _resume;
 	  });
@@ -83,9 +77,9 @@
 	  document.getElementById("extract-description").addEventListener('click', getDescription);
 	});
 	
-	function getDescription() {
+	var getDescription = function getDescription() {
 	  chrome.tabs.executeScript({ file: "./lib/pullDescription.js" });
-	}
+	};
 
 /***/ },
 /* 1 */
@@ -10312,6 +10306,157 @@
 	return jQuery;
 	} );
 
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.readFromTextArea = readFromTextArea;
+	
+	var _word_bank = __webpack_require__(3);
+	
+	var WORD_BANK = _interopRequireWildcard(_word_bank);
+	
+	var _jquery = __webpack_require__(1);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function readFromTextArea(text) {
+	  var uploadedResume = text;
+	
+	  if (!uploadedResume || uploadedResume === "") {
+	    message('Error: No text found');
+	    return;
+	  }
+	  var resume = parse(uploadedResume);
+	  chrome.storage.sync.set({ 'resume': resume }, function () {
+	    message('Resume saved');
+	  });
+	  return resume;
+	}
+	
+	function parse(string) {
+	  return replaceKeywords(removeStopWords(string));
+	}
+	
+	function removeStopWords(string) {
+	  var res = string.toLowerCase().replace(/[^\w\s]|_/g, "");
+	  // let stopwords = WORD_BANK.STOP_WORDS;
+	  // for (var i = 0; i < stopwords.length; i++){
+	  //   res = res.split(stopwords[i]).join('');
+	  // }
+	  res = res.replace(/\s+/g, " ");
+	  return res;
+	}
+	
+	function replaceKeywords(string) {
+	  var res = showOptimization(showInitiative(showLeadership(string)));
+	  res = showResearchOriented(showTeamOriented(showCustomerService(res)));
+	  res = showCommunication(showAchievement(res));
+	
+	  return res;
+	}
+	
+	function showLeadership(string) {
+	  var res = string;
+	  for (var i = 0; i < WORD_BANK.LEADERSHIP.length; i++) {
+	    res = res.split(WORD_BANK.LEADERSHIP[i]).join('leadership');
+	  }
+	  return res;
+	}
+	function showInitiative(string) {
+	  var res = string;
+	  for (var i = 0; i < WORD_BANK.INITIATIVE.length; i++) {
+	    res = res.split(WORD_BANK.INITIATIVE[i]).join('initiative');
+	  }
+	  return res;
+	}
+	function showOptimization(string) {
+	  var res = string;
+	  for (var i = 0; i < WORD_BANK.OPTIMIZATION.length; i++) {
+	    res = res.split(WORD_BANK.OPTIMIZATION[i]).join('optimization');
+	  }
+	  return res;
+	}
+	function showCustomerService(string) {
+	  var res = string;
+	  for (var i = 0; i < WORD_BANK.CUSTOMER_SERVICE.length; i++) {
+	    res = res.split(WORD_BANK.CUSTOMER_SERVICE[i]).join('customer service');
+	  }
+	  return res;
+	}
+	function showTeamOriented(string) {
+	  var res = string;
+	  for (var i = 0; i < WORD_BANK.TEAM_ORIENTED.length; i++) {
+	    res = res.split(WORD_BANK.TEAM_ORIENTED[i]).join('team oriented');
+	  }
+	  return res;
+	}
+	function showResearchOriented(string) {
+	  var res = string;
+	  for (var i = 0; i < WORD_BANK.RESEARCH_ORIENTED.length; i++) {
+	    res = res.split(WORD_BANK.RESEARCH_ORIENTED[i]).join('research oriented');
+	  }
+	  return res;
+	}
+	function showAchievement(string) {
+	  var res = string;
+	  for (var i = 0; i < WORD_BANK.ACHIEVEMENT.length; i++) {
+	    res = res.split(WORD_BANK.ACHIEVEMENT[i]).join('achievement');
+	  }
+	  return res;
+	}
+	function showCommunication(string) {
+	  var res = string;
+	  for (var i = 0; i < WORD_BANK.COMMUNICATION.length; i++) {
+	    res = res.split(WORD_BANK.COMMUNICATION[i]).join('communication');
+	  }
+	  return res;
+	}
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var LEADERSHIP = exports.LEADERSHIP = ["chaired", "controlled", "coordinated", "executed", "headed", "operated", "orchestrated", "organized", "oversaw", "planned", "produced", "programmed", "aligned", "cultivated", "directed", "enabled", "facilitated", "fostered", "guided", "hired", "inspired", "mentored", "mobilized", "motivated", "recruited", "regulated", "shaped", "supervised", "taught", "trained", "unified", "united"];
+	
+	var INITIATIVE = exports.INITIATIVE = ["administered", "built", "charted", "created", "designed", "developed", "devised", "founded", "engineered", "established", "formalized", "formed", "formulated", "implemented", "incorporated", "initiated", "instituted", "introduced", "launched", "pioneered", "spearheaded"];
+	
+	var OPTIMIZATION = exports.OPTIMIZATION = ["conserved", "consolidated", "decreased", "deducted", "diagnosed", "lessened", "reconciled", "reduced", "yielded", "accelerated", "achieved", "advanced", "amplified", "boosted", "capitalized", "delivered", "enhanced", "expanded", "expedited", "furthered", "gained", "generated", "improved", "lifted", "maximized", "outpaced", "stimulated", "sustained", "centralized", "clarified", "converted", "customized", "cnfluenced", "cntegrated", "merged", "modified", "overhauled", "redesigned", "refined", "refocused", "rehabilitated", "remodeled", "reorganized", "replaced", "restructured", "revamped", "revitalized", "simplified", "standardized", "streamlined", "strengthened", "updated", "upgraded", "transformed", "secured"];
+	
+	var CUSTOMER_SERVICE = exports.CUSTOMER_SERVICE = ["advised", "advocated", "arbitrated", "coached", "consulted", "educated", "fielded", "informed"];
+	
+	var TEAM_ORIENTED = exports.TEAM_ORIENTED = ["aligned", "cultivated", "directed", "enabled", "facilitated", "fostered", "guided", "hired", "inspired", "mentored", "mobilized", "motivated", "recruited", "regulated", "shaped", "supervised", "taught", "trained", "unified", "united", "resolved", "navigated", "negotiated", "partnered"];
+	
+	var RESEARCH_ORIENTED = exports.RESEARCH_ORIENTED = ["analyzed", "assembled", "assessed", "audited", "calculated", "discovered", "evaluated", "examined", "explored", "forecasted", "identified", "interpreted", "investigated", "mapped", "measured", "qualified", "quantified", "surveyed", "tested", "tracked"];
+	
+	var ACHIEVEMENT = exports.ACHIEVEMENT = ["attained", "awarded", "completed", "demonstrated", "earned", "exceeded", "outperformed", "reached", "showcased", "succeeded", "surpassed", "targeted"];
+	var COMMUNICATION = exports.COMMUNICATION = ["authored", "briefed", "campaigned", "co-authored", "composed", "conveyed", "convinced", "corresponded", "counseled", "critiqued", "defined", "documented", "edited", "illustrated", "lobbied", "persuaded", "promoted", "publicized", "reviewed", "acquired", "forged"];
+	
+	// Stop Words //
+	var client = Algorithmia.client("simCnX5SgvLeu7IMGCGgT0GWnE41");
+	var input = [];
+	var stopWords = void 0;
+	Algorithmia.client("simCnX5SgvLeu7IMGCGgT0GWnE41").algo("algo://nlp/RetrieveStopWords/0.1.1").pipe(input).then(function (output) {
+	  stopWords = output;
+	  console.log(output);
+	});
+	
+	var STOP_WORDS = exports.STOP_WORDS = stopWords.result;
 
 /***/ }
 /******/ ]);
