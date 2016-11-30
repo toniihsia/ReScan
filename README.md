@@ -20,10 +20,10 @@ Applicants should be able to upload their resume to the extension. This resume s
 
 With this extension, users will be able to:
 
-- [ ] Upload and parse a copy of their resume
-- [ ] Parse a job application page for keywords
-- [ ] Analyze the parsed text through natural language processing
-- [ ] Obtain a similarity percentage between the uploaded resume and the job application
+- [X] Paste and parse a copy of their resume
+- [X] Parse a job application page for keywords
+- [X] Analyze the parsed text through natural language processing
+- [X] Obtain a similarity percentage between the uploaded resume and the job application
 
 
 ### Wireframes
