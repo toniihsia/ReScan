@@ -1,73 +1,27 @@
 # re:Scan
-re:Scan (Resume Scanner) is a Chrome extension that provides a detailed report on how well-tailored an applicant's resume is to a particular job description.
+[Download Link][download-link]
+[download-link]: https://chrome.google.com/webstore/detail/rescan/fjiopcojjjafjnfgipombdbpjimignpl?hl=en-US&gl=US
 
-### Collaborators
+![Image of reScan Home](docs/production-photos/reScan-home.png)
+![Image of reScan Summary](docs/production-photos/results-summary.png)
+re:Scan is a resume scanner that takes in a resume and parses through it for keywords. It then parses through a web page's job description with the click of a button and provides a general summary that includes a similarity score, keyword comparisons, and suggestions. The parsed resume persists through multiple clicks, so there is no need to upload a new resume every time one wants to compare their resume to a job description. While the extension is geared towards helping job-seekers, it is also useful for recruiters who are curious about an applicant's resume's fit.
 
-Tonia Hsia: https://github.com/toniihsia
+## Features & Implementation
+### Similarity Score
+![Image of Similarity Score](docs/production-photos/similarity-score.png)
+The Similarity Score gives you a percentage that represents how closely a resume aligns with a job description. It is calculated by parsing through both the resume and job description and removing all stop words before comparing the two documents. Repeated words and words that generally indicate that same quality are considered the same and matched. The more matches there are, the higher the percentage score will be.
+### Keywords
+![Image of Keywords](docs/production-photos/keywords.png)
+The second key feature of re:Scan is that of keywords. Because re:Scan parses through both the submitted resume and the job description, it is able to find the keywords for each separate document. This becomes very helpful in comparing which keywords a job description highlights versus which keywords a resume highlights.
 
-Ben Dippelsman: https://github.com/quarks0
+Keywords for each document are calculated in the same way. The application uses a natural language processing algorithm that runs through the parsed resume and job description looking for words that are repeated most often. It then sorts displays the top five repeated words. Some words that point to the same quality are picked up automatically (e.g. 'created', 'engineered', and 'pioneered' all point to the same quality of 'leadership'). This helps users determine which words they should try incorporating.
 
+### Suggestions
+![Image of Suggestions](docs/production-photos/suggestions.png)
+The third key feature of re:Scan is that of suggestions. Because the application picks up on certain words that point to general qualities, it is capable of making suggestions. The application compares the keywords of the resume with the keywords of the job description. If any keywords do not match, it will suggest that the user either use the exact words that the job description uses or provide a sample of words that point to a particular quality indicated as a job description's keyword.
 
-## Background
-A well-tailored resume is an essential aspect to a successful job application. However, crafting such a resume can be difficult and time-consuming.
+## Future Directions
+### Suggestions
+Right now, it is still very difficult for our application to catch on to every word that indicates a particular kind of quality.
 
-re:Scan seeks to simplify the resume tailoring process by providing instant feed back on resume and job description similarity. It parses through a job description to isolate specific hard and soft qualities an employer is looking for. It then parses through an applicant's resumes looking for key words that suggest an applicant possesses these qualities. A percentage score that reflects how well a resume is suited for a job description is consequently produced. If an applicant's resume highly reflects the qualities an employer is looking for, a high percentage score is given. Otherwise, a low percentage score along with suggested verbs is provided.
-
-Applicants should be able to upload their resume to the extension. This resume should persist through browser navigation and be easily accessed upon clicking the Chrome extension button. The extension will parse through the DOM to look for job description text.
-
-
-### Functionality & MVP
-
-With this extension, users will be able to:
-
-- [X] Paste and parse a copy of their resume
-- [X] Parse a job application page for keywords
-- [X] Analyze the parsed text through natural language processing
-- [X] Obtain a similarity percentage between the uploaded resume and the job application
-
-
-### Wireframes
-re:Scan will appear as a modal when its corresponding Chrome extension icon is clicked in the Chrome extension bar.
-
-If the user has not uploaded a resume yet, the user will be prompted to upload his/her resume. The resume will be parsed immediately with its details stored within the extension itself.
-![Image of Resume Upload](docs/wireframes/rescan-resume-upload.png)
-
-If the user has already uploaded a resume, the extension will proceed to automatically parse the job description on the current webpage. The parsed resume information will be compared with the parsed job description information and a percentage score will be produced along with a comparison of keywords that are either present or missing from the applicant's resume.
-![Image of Score](docs/wireframes/rescan-chrome-extension.png)
-
-### Technologies & Technical Challenges
-
-This extension will be implemented using the standard Chrome extension technology: Javascript, HTML, and CSS.  In addition to the `manifest.json` and `package.json` files, there will be two scripts:
-
-- `parser.js` which will contain the logic for parsing documents
-- `wordmatcher.js`which will contain the logic for the natural language processing.
-
-The primary technical challenges will be:
-
-- Parsing through both the uploaded resume and the job application page
-- Determining weight and frequency of key words through natural language processing
-- Matching the frequency of all key words to generate a single percentage
-
-The uploaded resume and job application will be parsed while ignoring stop words. Once both documents parsed, each key word and several synonyms from the job application will be compared against the uploaded resume. The ability to identify and weigh key words will be handled by natural language processing through Stanford CoreNLP library.
-
-### Implementation Timeline
-**Day 1**: Get started on the infrastructure of the extension, following <a href="https://developer.chrome.com/extensions/getstarted">this guide</a> from Chrome.  By the end of the day, we will have:
-
-- A completed `package.json`
-- A completed `manifest.json`
-- The ability to upload and store a resume
-
-**Day 2**: Look into parsing mechanisms in order to parse the stored resume and job applications. Additionally, methods of isolating the job application content will be explored. By the end of the day, we will have:
-
-- The ability to parse resume contents
-- The ability to parse just the job application contents
-
-**Day 3**: Explore methods of identifying and counting key words. Stanford's CoreNLP library can provide an accessible way to analyze resume and document text.
-
-- Implement interfacing with the CoreNLP library to process text, may be offloaded through ajax requests via Algorithmia
-- Obtain raw matching data between the two documents
-
-**Day 4**: Consolidate matching data, and provide tertiary metrics such as resume length, job title matches, and advanced degrees.
-
-- Provide and display a singular number as a metric for how well the resume matches with the given job application description
-- Provide supplemental data to provide additional matching criteria, or where resume can be improved to better fit the job description
+It is fairly simple to construct a library of resume verbs that point to certain quality because most verbs follow widespread libraries and past-tense formats. However, it is very difficult to construct libraries for job descriptions. In fact, it would be extremely inefficient to try and load such a large library of words. An area of in which this application could improve then would be some element of artificial intelligence that can learn which words point to which qualities. That way, the application can produce more helpful suggestions.
