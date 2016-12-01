@@ -1,3 +1,7 @@
 .suggestions-container {
-  visibility: hidden;
+  display: none;
+}
+#suggestions {
+  /*visibility: hidden;*/
+  display: inline-block;
 }
