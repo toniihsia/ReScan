@@ -1,0 +1,12 @@
+.keywords-container {
+  display: none;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 0;
+  font-weight: 200;
+}
+
+#resume-keywords, #jd-keywords {
+  margin-bottom: 15px;
+}

@@ -1,4 +1,4 @@
-html, body, div, textarea, button, h1, h2, h3, ul, li textarea{
+html, body, div, textarea, button, h1, h2, h3, ul, textarea{
   margin: 0;
   border: 0;
   padding: 0;
@@ -8,16 +8,22 @@ html, body, div, textarea, button, h1, h2, h3, ul, li textarea{
   text-align: inherit;
   color: inherit;
   background: transparent;
-  list-style: none;
+  visibility: inherit;
 
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
   color: white;
 }
 
+li {
+  margin-left: 20px;
+}
+
 body {
   width: 450px;
   background: #7887AB;
+  margin-bottom: 25px;
+
 }
 
 h1 {
@@ -27,16 +33,27 @@ h1 {
   font-family: 'Abril Fatface', cursive;
 }
 
+h2 {
+  font-family: 'Abril Fatface', cursive;
+  font-size: 25px;
+  text-align: left;
+}
+
 h3 {
   font-size: 15px;
-  font-weight: 200;
-  text-align: center;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 .header-container {
   margin: 20px;
+
 }
 
-.html {
-  width: 600px;
+
+#sub {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 200;
 }

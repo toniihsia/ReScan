@@ -13,21 +13,29 @@
 
 
 .results-container {
-  visibility: hidden;
+  display: none;
+}
+
+.results-container {
+  padding: 10px;
+}
+
+#results-percentage {
+  font-size: 15px;
 }
 
 .container {
   width: 80%;
-  margin: 20px;
-  background: #2E4172;
-  padding: 20px;
+  margin: 10px;
+  background: #7887AB;
+  padding: 0;
   overflow: hidden;
   float: left;
 }
 
 .horizontal .progress-bar {
   float: left;
-  height: 45px;
+  height: 20px;
   width: 100%;
   padding: 12px 0;
 }
@@ -41,7 +49,7 @@
 
 .horizontal .progress-fill {
   position: relative;
-  background: #666;
+  background: #061539;
   height: 20px;
   width: 0%;
   color: #fff;
@@ -55,8 +63,7 @@
   color: white;
 }
 
-.rounded .progress-track,
-.rounded .progress-fill {
-  border-radius: 3px;
+.progress-track, .progress-fill {
+  border-radius: 20px;
   box-shadow: inset 0 0 5px rgba(0,0,0,.2);
 }
