@@ -4,21 +4,40 @@
     <meta charset="utf-8">
     <script src="./algorithmia.js" type="text/javascript"></script>
     <script src="../bundle.js"></script>
+    <link rel="stylesheet" href="./css/master.css" type="text/css">
+    <link rel="stylesheet" href="./css/results-percentage.css" type="text/css">
+    <link rel="stylesheet" href=".css/resume-submission.css" type="text/css">
     <link rel="stylesheet" href="../assets/rescan.css" type="text/css">
     <title>re:Scan</title>
   </head>
   <body>
     <div id="root">
-      re:Scan
+      <div class="header">
+        <h1>re:Scan</h1>
+        <h3>a lightweight resume scanner</h3>
+      </div>
 
-      ya bish
-
-      <textarea id="resume-box"></textarea>
+      <textarea id="resume-box" placeholder="Please provide a text only resume."></textarea>
       <button id="upload-resume">Upload Resume</button>
 
       <button id="extract-description">Get description</button>
-
+      <div class="results-container">
       <div id="results-percentage"></div>
+        <!-- // B A R   G R A P H // -->
+        <div class="container horizontal flat">
+          <h2>Horizontal, Flat</h2>
+          <div class="progress-bar horizontal">
+            <div class="progress-track">
+              <div class="progress-fill">
+                <span id="percentage"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- / / / / / / / / / / / / / / / / -->
+
+
       <div id="resume-keywords"></div>
       <div id="jd-keywords"></div>
       <div id="suggestions">Try out these suggestions:</div>
