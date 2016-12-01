@@ -1,21 +1,10 @@
-.resume-container {
+.jd-container {
   margin: auto;
   text-align: center;
   width: 80%;
 }
 
-#resume-box {
-  margin: 0;
-  padding: 5px;
-  width: 400px;
-  height: 200px;
-  height: 30%;
-  outline: 1px solid #383838;
-  text-align: left;
-  display: none;
-}
-
-#upload-resume {
+#extract-description {
   margin: auto;
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
@@ -36,7 +25,7 @@
   cursor: pointer;
 }
 
-#upload-resume:hover {
+#extract-description:hover {
   cursor: pointer;
   background-color: lightblue;
   transition: 0.3s;

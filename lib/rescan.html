@@ -5,22 +5,28 @@
     <script src="./algorithmia.js" type="text/javascript"></script>
     <script src="../bundle.js"></script>
     <link rel="stylesheet" href="./css/master.css" type="text/css">
+    <link rel="stylesheet" href="./css/jd-description.css" type="text/css">
+    <link rel="stylesheet" href="./css/resume-submission.css" type="text/css">
     <link rel="stylesheet" href="./css/results-percentage.css" type="text/css">
-    <link rel="stylesheet" href=".css/resume-submission.css" type="text/css">
     <link rel="stylesheet" href="../assets/rescan.css" type="text/css">
     <title>re:Scan</title>
   </head>
   <body>
     <div id="root">
-      <div class="header">
+      <div class="header-container">
         <h1>re:Scan</h1>
         <h3>a lightweight resume scanner</h3>
       </div>
 
-      <textarea id="resume-box" placeholder="Please provide a text only resume."></textarea>
-      <button id="upload-resume">Upload Resume</button>
+      <div class="resume-container">
+        <textarea id="resume-box" placeholder="Please provide a text only resume."></textarea>
+        <button id="upload-resume">Upload Resume</button>
+      </div>
 
-      <button id="extract-description">Get description</button>
+      <div class="jd-container">
+        <button id="extract-description">Get description</button>
+      </div>
+
       <div class="results-container">
       <div id="results-percentage"></div>
         <!-- // B A R   G R A P H // -->
@@ -37,15 +43,19 @@
       </div>
       <!-- / / / / / / / / / / / / / / / / -->
 
+      <div class="keywords-container">
+        <div id="resume-keywords"></div>
+        <div id="jd-keywords"></div>
+      </div>
 
-      <div id="resume-keywords"></div>
-      <div id="jd-keywords"></div>
-      <div id="suggestions">Try out these suggestions:</div>
-        <ul>
-          <li id="suggestion-1"></li>
-          <li id="suggestion-2"></li>
-          <li id="suggestion-3"></li>
-        </ul>
-    </div>
+      <div class="suggestions-container">
+        <div id="suggestions">Try out these suggestions:</div>
+          <ul>
+            <li id="suggestion-1"></li>
+            <li id="suggestion-2"></li>
+            <li id="suggestion-3"></li>
+          </ul>
+      </div>
+
   </body>
 </html>
