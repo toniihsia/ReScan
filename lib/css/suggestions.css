@@ -1,7 +1,9 @@
 .suggestions-container {
   display: none;
+  margin: 20px;
+  font-weight: 200;
 }
-#suggestions {
+#suggestion-1, #suggestion-2, #suggestion-3 {
   /*visibility: hidden;*/
-  display: inline-block;
+  margin-bottom: 15px;
 }
