@@ -11,22 +11,25 @@
     <link rel="stylesheet" href="./css/suggestions.css" type="text/css">
     <link rel="stylesheet" href="./css/results-percentage.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
     <title>re:Scan</title>
   </head>
   <body>
     <div id="root">
       <div class="header-container">
+        <img src="icon.png" alt="icon" height="100" width="100">
         <h1>re:Scan</h1>
         <div id="sub">a light weight resume scanner</div>
       </div>
 
       <div class="resume-container">
-        <textarea id="resume-box" style="display: none" placeholder="Please provide a text only resume."></textarea>
-        <button id="upload-resume">Upload Resume</button>
+        <textarea id="resume-box" placeholder="Please provide a text only resume."></textarea>
+        <button id="upload-resume">Upload New Resume</button>
       </div>
 
       <div class="jd-container">
-        <button id="extract-description">Get description</button>
+        <button id="extract-description">Get Similarity Score</button>
       </div>
 
       <div class="results-container">
