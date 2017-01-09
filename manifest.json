@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "re:Scan",
-  "description": "re:Scan is a Chrome extension that provides a detailed report on how well-tailored an applicant's resume is to a particular job description.",
+  "description": "A Chrome extension that provides a detailed report on how well-tailored an applicant's resume is to a particular job description.",
   "version": "1.0",
 
   "browser_action": {
