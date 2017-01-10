@@ -6,6 +6,7 @@
 
 #extract-description {
   outline: 0;
+  display: none;
   width: 60%;
   padding: 10px;
   border: none;

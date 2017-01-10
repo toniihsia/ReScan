@@ -3,7 +3,7 @@
 
   "name": "re:Scan",
   "description": "A Chrome extension that provides a detailed report on how well-tailored an applicant's resume is to a particular job description.",
-  "version": "1.0",
+  "version": "1.2",
 
   "browser_action": {
     "default_icon": "./lib/icon.png",
