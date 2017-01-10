@@ -4,6 +4,18 @@
   width: 80%;
 }
 
+#title-box {
+  margin: 0;
+  padding: 5px;
+  width: 80%;
+  background-color: white;
+  text-align: left;
+  display: none;
+  color: #383838;
+  font-size: 11.5px;
+  outline: none;
+}
+
 #resume-box {
   margin: 0;
   padding: 5px;
